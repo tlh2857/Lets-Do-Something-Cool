@@ -1,0 +1,13 @@
+body{
+
+}
+h1{
+    color: red; 
+}
+
+#signOutButton{
+    display:none;
+}
+#calcFib{
+    display:none;
+}

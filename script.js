@@ -4,7 +4,9 @@ document.getElementById("signIn").addEventListener("click", signInAttempt);
 document.getElementById('register').addEventListener('click', register);
 document.getElementById('signOutButton').addEventListener('click', signOut);
 document.getElementById('calcFib').addEventListener('click', calcFib);
+autoLogin(); 
 }
+
 
 //generate cookie object, creates users as global variable
 function generateUserObject(){ 
@@ -20,6 +22,16 @@ function generateUserObject(){
 }; 
 generateUserObject();
 
+function autoLogin(){
+    console.log(users);
+    if(!Object.keys(users).length){
+        return; 
+    } else{
+       let autoUserEmail = Object.keys(users)[Object.keys(users).length-1];
+       loginSuccessFunc()
+        document.getElementById('greeting').innerHTML = `Welcome, ${autoUserEmail}`;
+    }
+}
 
 function signInAttempt(event){
    event.preventDefault();  // prevents page refresh
@@ -84,9 +96,35 @@ document.getElementById('calcFib').style.display = 'none';
 document.getElementById('greeting').innerHTML = `Hello Stranger!`;
 }
 
-function calcFib(){
+function calcFib(theHardWay){
+
     //return fib numbers
+    console.time("fib")
+        var nums = [0,1];
+        var random=0; 
+        while(random<10000){
+          random = Math.round(Math.random()*100000); 
+        }
+        
+        while(nums[1]<=random){
+            nums.push(nums[0]+nums[1]);
+            if (nums[2]>random){
+                console.log(nums[1]);
+                  console.timeEnd("fib"); 
+                return;
+            } else {
+                [nums[0],nums[1]] = [nums[1],nums[2]]; 
+                nums.pop();
+            }
+        }
+      
+        
+    }
+
+    /*
+    console.time("calcFib run time the easy way:"); 
    let random = Math.round(Math.random()*4);
     let fibNums = [10946, 17711, 28657, 46368, 75025];
     console.log(fibNums[random]);  
-}
+    console.timeEnd('calcFib run time the easy way:');
+*/
